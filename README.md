@@ -28,6 +28,8 @@ XJPhotoBrower 图片浏览器
 
 例如:
 extension XJBaseVC: AnimatorPresentedDelegate {
+
+
     func starRect(indexPath: IndexPath) -> CGRect {
     return photoBrowerVC.starRect(belowCollection: collectionView, indexPath: indexPath)
     }

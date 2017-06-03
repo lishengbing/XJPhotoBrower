@@ -1,5 +1,6 @@
 
-XJPhotoBrower 图片浏览器
+## 图片浏览器
+XJPhotoBrower 
 
 #_记得点击star、不定期更新、不定时问鼎、不定时颠覆；可记否！
 
@@ -15,31 +16,40 @@ XJPhotoBrower 图片浏览器
 
 #_使用说明
 
-> 1: 创建：let photoBrowerVC = XJPhotoBrowerVC(indexPath: indexPath, images: images, vc:self)
+> 1: 创建：
 
-> 2: 00 fileprivate lazy var photoBrowerVC = XJPhotoBrowerVC() 
-     01 self.photoBrowerVC = photoBrowerVC
+>_let photoBrowerVC = XJPhotoBrowerVC(indexPath: indexPath, images: images, vc:self)
 
-> 3: photoBrowerVC.modalPresentationStyle = .custom
+>_fileprivate lazy var photoBrowerVC = XJPhotoBrowerVC()
 
-> 4: present(photoBrowerVC, animated: true, completion: nil)
+> 2: 保存属性:  
 
-> 5: 实现三个方法书写，不需要你处理，只需要在你当前控制器中继承即可：
+>_self.photoBrowerVC = photoBrowerVC
+
+> 3: 设置model类型:
+
+>_photoBrowerVC.modalPresentationStyle = .custom
+
+> 4: 模态出来:
+
+>_present(photoBrowerVC, animated: true, completion: nil)
+
+> 5: 实现代理 <三个方法书写，不需要你处理，只需要在你当前控制器中这样写即可>
 
 例如:
 extension XJBaseVC: AnimatorPresentedDelegate {
 
 
-    func starRect(indexPath: IndexPath) -> CGRect {
-    return photoBrowerVC.starRect(belowCollection: collectionView, indexPath: indexPath)
-    }
+func starRect(indexPath: IndexPath) -> CGRect {
+return photoBrowerVC.starRect(belowCollection: collectionView, indexPath: indexPath)
+}
 
-    func endRect(indexPath: IndexPath) -> CGRect {
-    return photoBrowerVC.endRect(indexPath: indexPath)
-    }
+func endRect(indexPath: IndexPath) -> CGRect {
+return photoBrowerVC.endRect(indexPath: indexPath)
+}
 
-    func imageView(indexPath: IndexPath) -> UIImageView {
-    return photoBrowerVC.imageView(indexPath: indexPath)
-    }
+func imageView(indexPath: IndexPath) -> UIImageView {
+return photoBrowerVC.imageView(indexPath: indexPath)
+}
 }
 

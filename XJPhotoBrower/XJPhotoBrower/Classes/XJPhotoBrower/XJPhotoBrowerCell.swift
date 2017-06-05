@@ -18,7 +18,7 @@ class XJPhotoBrowerCell: UICollectionViewCell {
     weak var delegate: XJPhotoBrowerCellDelegate?
     lazy var scrollView: UIScrollView = UIScrollView()
     lazy var imgView: UIImageView = UIImageView()
-    fileprivate var isScaleBig: Bool = false
+    var isScaleBig: Bool = false
     
     var photoBrowerImage: UIImage? {
         didSet {
@@ -29,6 +29,8 @@ class XJPhotoBrowerCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -101,7 +103,9 @@ extension XJPhotoBrowerCell {
 
 extension XJPhotoBrowerCell {
     fileprivate func setupContent(image: UIImage?) {
-        
+        /** 1: cell.scrollView.setZoomScale(1.0, animated: false)
+         *  2: 这个方法如果要设置一定要在计算frame之前设置，不然没有效果
+         */
         guard let image = image else { return }
         let image_x: CGFloat = 0
         let image_width: CGFloat = UIScreen.main.bounds.width

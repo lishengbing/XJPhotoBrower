@@ -112,4 +112,23 @@ extension UIView {
         let iphone6Height = CGFloat(667)
         return kScreenH * h / iphone6Height
     }
+
+}
+
+
+extension UIView {
+    func viewController() -> UIViewController? {
+        //通过响应者链，取得此视图所在的视图控制器
+        var nextVC = self.next
+        
+        while(nextVC != nil) {
+            //判断响应者对象是否是视图控制器类型
+            if (nextVC?.isKind(of: UIViewController.self))! {
+                return nextVC as? UIViewController
+            }
+            
+            nextVC = nextVC?.next
+        }
+        return nil;
+    }
 }

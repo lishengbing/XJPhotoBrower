@@ -15,6 +15,8 @@ class XJPhotoBrowerVC: UIViewController {
     var images: [UIImage]!
     var photoBrowerAnimatorDelegate: XJPhotoBrowerAnimator?
     var belowVC: UIViewController!
+    fileprivate var currentIndex: Int = 0
+    fileprivate var isReload: Bool = false
     
     fileprivate lazy var photoBrowerAnimator : XJPhotoBrowerAnimator = XJPhotoBrowerAnimator()
     fileprivate lazy var collectionView: UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: XJPhotoBrowerLayout())
@@ -77,8 +79,13 @@ extension XJPhotoBrowerVC: UICollectionViewDataSource, UICollectionViewDelegate 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kCellId, for: indexPath) as! XJPhotoBrowerCell
+        if isReload {
+            cell.isScaleBig = false
+            cell.scrollView.setZoomScale(1.0, animated: false)
+        }
         cell.photoBrowerImage = images[indexPath.item]
         cell.delegate = self
+        
         return cell
     }
     
@@ -89,7 +96,14 @@ extension XJPhotoBrowerVC: UICollectionViewDataSource, UICollectionViewDelegate 
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        collectionView.reloadData()
+        let offsetX = scrollView.contentOffset.x
+        let index = Int(offsetX / (scrollView.width))
+        isReload = false
+        if index != self.currentIndex {
+            isReload = true
+            collectionView.reloadData()
+        }
+        self.currentIndex = index
     }
 }
 
